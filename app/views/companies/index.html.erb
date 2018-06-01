@@ -1,24 +1,85 @@
-<%=link_to "Add companies",new_company_path%><br>
 <%if (user_signed_in?)%>
-	add questions
-	<%=form_for @question do |f|%>
-		<%=f.text_field :question%>
-		<%=f.hidden_field :user_id,value:current_user.id%>
-		<%=f.submit%>
-	<%end%>		
-	<%Question.all.each do |q|%>
-		<%if (q.user.company_id === current_user.company_id)%>
-			<%=q.question%><%if current_user.id == q.user_id%><%=link_to "edit",edit_question_path(q.id)%><%end%>
-			<%=form_for Answer.new do |f|%>
-				<%=f.text_field :answer%>
-				<%=f.hidden_field :question_id,value:q.id%>
-				<%=f.hidden_field :user_id,value:q.id%>
-				<%=f.submit%>
-		  <%end%>
-		  <%q.answers.each do |a|%>
-		  	<%=a.answer%>
-		  <%end%>
-		<%end%>
-		<br>
-	<%end%>
+  <div class="question-form ">
+  	<div class="container">
+		<%=form_for @question,remote:true do |f|%>
+			<div class="form-group">
+				<%=f.text_field :question,class:"form-control",placeholder:"Question"%>
+			</div>
+			<%=f.hidden_field :user_id,value:current_user.id%>
+			<%=f.hidden_field :company_id,value:current_user.company.id%>
+			<%=f.submit class:"btn btn-secondary"%>	
+		<%end%>		
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8" id="my-question">
+				<h1 class="question">My Questions</h1>
+				<%current_user.questions.each do |q|%>
+					<h4><%=q.question%></h4>
+					<button class="btn btn-success  btn-light" type="button" data-toggle="collapse" data-target="#<%=q.id%>" aria-expanded="false" aria-controls="collapseExample">
+							see more				
+					</button><%=link_to "edit",edit_question_path(q.id),class:"pull-right"%><br>
+					<div class="collapse" id="<%=q.id%>">
+						<div class="card card-body">
+							<%=form_for Answer.new,remote:true do |f|%>
+								<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
+								<%=f.hidden_field :question_id,value:q.id%>
+								<%=f.hidden_field :user_id,value:current_user.id%><br>
+								<%=f.submit class:"list-group-item list-group-item-warning"%>
+				  			<%end%><br>
+					  		<ul class="list-group">
+					  			<div class="margin-answers">
+							  		<%q.answers.each do |a|%>
+								  		<li class="list-group-item">
+								  			<%=a.answer%><br>
+								  			<small><%=a.user.email%></small>
+								  		</li>
+							  		<%end%>
+									</div>
+							</ul>
+							<br>
+							<br>
+						</div>
+					</div>
+				<%end%>
+			</div>
+			<div class="col-md-4">`
+				<h1>Company Users</h1>
+				<ul class="list-group">
+					<%current_user.company.users.each do |user|%>
+	  				<li class="list-group-item"><%=user.email%></li>
+	  			<%end%>
+				</ul>
+				<h2>others questions</h2>
+					<%current_user.company.questions.where.not(user_id:current_user.id).each do |q|%>
+	  				<button class="btn btn-success  btn-light" type="button" data-toggle="collapse" data-target="#<%=q.id%>" aria-expanded="false" aria-controls="collapseExample">
+								<%=q.question%>					
+						</button><%=link_to "edit",edit_question_path(q.id)%><br>
+						<div class="collapse" id="<%=q.id%>">
+							<div class="card card-body">
+								<%=form_for Answer.new,remote:true do |f|%>
+									<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
+									<%=f.hidden_field :question_id,value:q.id%>
+									<%=f.hidden_field :user_id,value:current_user.id%><br>
+									<%=f.submit class:"list-group-item list-group-item-warning"%>
+					  		<%end%><br>
+					  		<ul class="list-group">
+					  			<div class="margin-answers">
+							  		<%q.answers.each do |a|%>
+								  		<li class="list-group-item">
+								  			<%=a.answer%><br>
+								  			<small><%=a.user.email%></small>
+								  		</li>
+							  		<%end%>
+									</div>
+								</ul>
+								<br>
+								<br>
+							</div>
+						</div>
+	  			<%end%>
+			</div>
+		</div>
+	</div>
 <%end%>

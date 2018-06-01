@@ -1,0 +1,29 @@
+.form-styling{
+	width:300px;
+	margin:35px auto;
+	border:3px solid black;
+	padding:20px 30px;
+}
+.question-styling{
+	width:80%;
+	margin:0 auto;
+}
+.question-form{
+	background:url("http://www.uniwallpaper.com/static/images/dandelion.jpg");
+	background-repeat: no-repeat;
+	background-position: cover; 
+	background-size:100%;
+	padding:80px 60px;
+}
+.img-fluid{
+	width:100%;
+}
+.margin-answers{
+	padding:20px 46px;
+}
+.btn{
+	margin:10px 10px;
+}
+.question{
+	margin:31px 0;
+}

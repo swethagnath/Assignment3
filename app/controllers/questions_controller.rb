@@ -2,7 +2,9 @@ class QuestionsController < ApplicationController
 	def create
 		@question = Question.new( question_params)
 		@question.save
-		redirect_to companies_path
+		respond_to do |format|
+			format.js
+		end
 	end
 	def edit
 		@question = Question.find(params[:id])
@@ -13,8 +15,8 @@ class QuestionsController < ApplicationController
 		@question.save
 		redirect_to companies_path
 	end
-	private
+	private 
 	def question_params
-		params[:question].permit(:question,:user_id)
+		params[:question].permit(:question,:user_id,:company_id)
 	end
 end

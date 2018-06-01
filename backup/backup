@@ -1,0 +1,26 @@
+<!-- <div class="col-md-6">
+			<h2>your questions</h2>
+			<%#Question.all.each do |q|%>
+				<%#if(q.user.company_id === current_user.company_id)%>
+					<h3><%#=q.question%><%#if(current_user.id == q.user_id)%> | <%#=link_to "edit",edit_question_path(q.id)%><%#end%></h3><br>
+					<%#=form_for Answer.new do |f|%>
+						<%#=f.text_field :answer,class:"form-control",placeholder:"answer"%>
+						<%#=f.hidden_field :question_id,value:q.id%>
+						<%#=f.hidden_field :user_id,value:current_user.id%><br>
+						<%#=f.submit class:"list-group-item list-group-item-warning"%>
+				  <%#end%><br>
+				  <ul class="list-group">
+				  	<div class="margin-answers">
+						  <%#q.answers.each do |a|%>
+						  	<li class="list-group-item">
+						  		<%#=#a.answer%><br>
+						  		<small><%#=#a.user.email%></small>
+						  	</li><br>
+						  <%#end%>
+					  </div>
+				  </ul>
+				  <hr>
+				<%#end%>
+				<br>
+			<%#end%>
+		</div> -->

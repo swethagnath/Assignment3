@@ -2,7 +2,9 @@ class AnswersController < ApplicationController
 	def create
 		@answer = Answer.new(answer_params)
 		@answer.save
-		redirect_to companies_path
+		respond_to do |format|
+			format.js
+		end
 	end
 	private
 	def answer_params
