@@ -1,25 +1,28 @@
-<button class="btn btn-success  btn-light" type="button" data-toggle="collapse" data-target="#<%=@question.id%>" aria-expanded="false" aria-controls="collapseExample">
-	<%=@question.question%>					
-</button><%=link_to "edit",edit_question_path(@question.id),class:"pull-right"%><br>
-<div class="collapse" id="<%=@question.id%>">
-	<div class="card card-body">
-		<%=form_for Answer.new,remote:true do |f|%>
-			<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
-			<%=f.hidden_field :question_id,value:@question.id%>
-			<%=f.hidden_field :user_id,value:current_user.id%><br>
-			<%=f.submit class:"list-group-item list-group-item-warning"%>
-		<%end%><br>
-		<ul class="list-group">
-			<div class="margin-answers">
-	  		<%@question.answers.each do |a|%>
-		  		<li class="list-group-item">
-		  			<%=a.answer%><br>
-		  			<small><%=a.user.email%></small>
-		  		</li>
-	  		<%end%>
-			</div>
-		</ul>
-		<br>
-		<br>
+<div class="styling-question">
+	<%=@question.question%><br>
+	<button class="btn btn-success custom-btn btn-light" type="button" data-toggle="collapse" data-target="#<%=@question.id%>" aria-expanded="false" aria-controls="collapseExample">
+		see more				
+	</button><%=link_to "edit",edit_question_path(@question.id)%><br>
+	<div class="collapse" id="<%=@question.id%>">
+		<div class="card card-body">
+			<%=form_for Answer.new,remote:true do |f|%>
+				<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
+				<%=f.hidden_field :question_id,value:@question.id%>
+				<%=f.hidden_field :user_id,value:current_user.id%><br>
+				<%=f.submit class:"list-group-item list-group-item-warning"%>
+			<%end%><br>
+			<ul class="list-group">
+				<div class="margin-answers<%=@question.id%>">
+		  		<%@question.answers.each do |a|%>
+			  		<li class="list-group-item">
+			  			<%=a.answer%><br>
+			  			<small><%=a.user.email%></small>
+			  		</li>
+		  		<%end%>
+				</div>
+			</ul>
+			<br>
+			<br>
+		</div>
 	</div>
 </div>

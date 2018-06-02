@@ -1,0 +1,6 @@
+<%=form_for @answer do |f|%>
+	<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
+	<%=f.hidden_field :question_id,value:@answer.question.id%>
+	<%=f.hidden_field :user_id,value:current_user.id%><br>
+	<%=f.submit class:"list-group-item list-group-item-warning"%>
+<%end%>

@@ -1,14 +1,13 @@
 <%if (user_signed_in?)%>
-  <div class="question-form ">
-  	<div class="container">
-		<%=form_for @question,remote:true do |f|%>
-			<div class="form-group">
-				<%=f.text_field :question,class:"form-control",placeholder:"Question"%>
-			</div>
-			<%=f.hidden_field :user_id,value:current_user.id%>
-			<%=f.hidden_field :company_id,value:current_user.company.id%>
-			<%=f.submit class:"btn btn-secondary"%>	
-		<%end%>		
+	<div class="question-form ">
+		<div class="container">
+			<%=form_for @question,remote:true do |f|%>
+				<div class="form-group">
+					<%=f.text_field :question,class:"form-control",placeholder:"Question",id:"question-input"%>
+					<span id="questionError"></span>
+				</div>
+				<%=f.submit class:"btn btn-secondary"%>	
+			<%end%>		
 		</div>
 	</div>
 	<div class="container">
@@ -16,59 +15,66 @@
 			<div class="col-md-8" id="my-question">
 				<h1 class="question">My Questions</h1>
 				<%current_user.questions.each do |q|%>
-					<h4><%=q.question%></h4>
-					<button class="btn btn-success  btn-light" type="button" data-toggle="collapse" data-target="#<%=q.id%>" aria-expanded="false" aria-controls="collapseExample">
-							see more				
-					</button><%=link_to "edit",edit_question_path(q.id),class:"pull-right"%><br>
-					<div class="collapse" id="<%=q.id%>">
-						<div class="card card-body">
-							<%=form_for Answer.new,remote:true do |f|%>
-								<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
-								<%=f.hidden_field :question_id,value:q.id%>
-								<%=f.hidden_field :user_id,value:current_user.id%><br>
-								<%=f.submit class:"list-group-item list-group-item-warning"%>
-				  			<%end%><br>
-					  		<ul class="list-group">
-					  			<div class="margin-answers">
-							  		<%q.answers.each do |a|%>
-								  		<li class="list-group-item">
-								  			<%=a.answer%><br>
-								  			<small><%=a.user.email%></small>
-								  		</li>
-							  		<%end%>
-									</div>
-							</ul>
-							<br>
-							<br>
-						</div>
-					</div>
-				<%end%>
-			</div>
-			<div class="col-md-4">`
-				<h1>Company Users</h1>
-				<ul class="list-group">
-					<%current_user.company.users.each do |user|%>
-	  				<li class="list-group-item"><%=user.email%></li>
-	  			<%end%>
-				</ul>
-				<h2>others questions</h2>
-					<%current_user.company.questions.where.not(user_id:current_user.id).each do |q|%>
-	  				<button class="btn btn-success  btn-light" type="button" data-toggle="collapse" data-target="#<%=q.id%>" aria-expanded="false" aria-controls="collapseExample">
-								<%=q.question%>					
-						</button><%=link_to "edit",edit_question_path(q.id)%><br>
+					<div class="styling-question">					
+						<h4><%=q.question%></h4><br>
+						<button class="btn btn-success custom-btn btn-light" type="button" data-toggle="collapse" data-target="#<%=q.id%>" aria-expanded="false" aria-controls="collapseExample">
+								see more				
+						</button><%=link_to "edit question",edit_question_path(q.id)%>|<%=q.user.email%><br>
 						<div class="collapse" id="<%=q.id%>">
 							<div class="card card-body">
 								<%=form_for Answer.new,remote:true do |f|%>
 									<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
 									<%=f.hidden_field :question_id,value:q.id%>
-									<%=f.hidden_field :user_id,value:current_user.id%><br>
-									<%=f.submit class:"list-group-item list-group-item-warning"%>
+									<%=f.submit class:"list-group-item list-group-item-warning answer-submit"%>
+					  			<%end%><br>
+						  		<ul class="list-group">
+						  			<div class="margin-answers<%=q.id%>">
+								  		<%q.answers.each do |a|%>
+									  		<li class="list-group-item">
+									  			<%=a.answer%><br>
+									  			<%if current_user.id == a.user.id%>
+									  				<%=link_to "edit",edit_answer_path(a.id)%>|
+									  			<%end%>
+									  			<small><%=a.user.email%></small>
+									  		</li>
+								  		<%end%>
+									</div>
+								</ul>
+								<br>
+								<br>
+							</div>
+						</div>
+					</div>
+				<%end%>
+			</div>
+			<div class="col-md-4 styling-left">
+				<h1 class="question">Company Users</h1>
+				<ul class="list-group">
+					<%current_user.company.users.each do |user|%>
+	  				<li class="list-group-item"><%=user.email%></li>
+	  			<%end%>
+				</ul>
+				<h1 class="other-question">Other Questions</h1>
+					<%current_user.company.questions.where.not(user_id:current_user.id).each do |q|%>					
+						<h4><%=q.question%></h4>
+	  				<button class="btn btn-success custom-btn btn-light" type="button" data-toggle="collapse" data-target="#<%=q.id%>" aria-expanded="false" aria-controls="collapseExample">
+						see more
+						</button>| <%=q.user.email%>
+						<div class="collapse" id="<%=q.id%>">
+							<div class="card card-body">
+								<%=form_for Answer.new,remote:true do |f|%>
+									<%=f.text_field :answer,class:"form-control",placeholder:"answer"%>
+									<%=f.hidden_field :question_id,value:q.id%><br>
+									<%=f.submit class:"list-group-item list-group-item-warning answer-submit"%>
 					  		<%end%><br>
 					  		<ul class="list-group">
-					  			<div class="margin-answers">
+					  			<div class="margin-answers<%=q.id%>">
 							  		<%q.answers.each do |a|%>
 								  		<li class="list-group-item">
 								  			<%=a.answer%><br>
+								  			<%if current_user.id == a.user.id%>
+								  				<%=link_to "edit",edit_answer_path(a.id)%>| 
+								  			<%end%>
 								  			<small><%=a.user.email%></small>
 								  		</li>
 							  		<%end%>
@@ -83,3 +89,25 @@
 		</div>
 	</div>
 <%end%>
+<script type="text/javascript">
+	var questionInput = document.getElementById('question-input');
+	var questionForm = document.getElementById('new_question');
+	var questionValid = false;
+	var questionError = document.getElementById('questionError');
+	function check(){
+		if(questionInput.value === ""){
+		  questionValid = false;
+		  questionError.innerHTML = "can't be empty";
+		}else{
+			questionValid = true;
+			questionError.innerHTML = "";
+		}
+		return questionValid;
+	}
+	questionForm.addEventListener('submit',function(e){
+		check();
+		if(questionValid === false){
+			e.preventDefault();
+		}
+	});
+</script>

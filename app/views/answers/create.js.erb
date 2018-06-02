@@ -1,1 +1,2 @@
-$(".margin-answers").append('<%=escape_javascript render 'answer'%>');
+$('#new_answer')[0].reset();
+$(".margin-answers<%=@answer.question.id%>").append('<%=escape_javascript render 'answer'%>');

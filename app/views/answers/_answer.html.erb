@@ -1,4 +1,7 @@
 <li class="list-group-item">
 	<%=@answer.answer%><br>
+	<%if current_user.id == @answer.user.id%>
+		<%=link_to "edit",edit_answer_path(@answer.id)%>
+	<%end%>
 	<small><%=@answer.user.email%></small>
 </li>

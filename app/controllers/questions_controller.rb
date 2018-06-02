@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
 	def create
-		@question = Question.new( question_params)
+		@question            = Question.new( question_params)
+		@question.user_id    = current_user.id
+		@question.company_id = current_user.company.id
 		@question.save
 		respond_to do |format|
 			format.js
@@ -17,6 +19,6 @@ class QuestionsController < ApplicationController
 	end
 	private 
 	def question_params
-		params[:question].permit(:question,:user_id,:company_id)
+		params[:question].permit(:question)
 	end
 end

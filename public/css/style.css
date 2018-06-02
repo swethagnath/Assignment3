@@ -19,7 +19,7 @@
 	width:100%;
 }
 .margin-answers{
-	padding:20px 46px;
+	padding:0;
 }
 .btn{
 	margin:10px 10px;
@@ -27,3 +27,27 @@
 .question{
 	margin:31px 0;
 }
+.other-question{
+	font-size: 33px;
+    margin: 28px 14px 29px 0px;
+
+}
+.styling-question{
+	border:2px solid black;
+	padding: 12px 18px 5px 18px;
+	margin-bottom:12px;
+}
+.custom-btn{
+	margin-left: 0;
+}
+h4 {
+    font-size: 19px;
+    font-weight: 100;
+}
+.styling-left{margin-top: 0;}
+.btn-secondary{margin: 0}
+.answer-submit{
+	margin-top: 16px;
+}
+
+
