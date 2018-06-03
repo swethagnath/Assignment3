@@ -1,24 +1,42 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version : ruby 2.4.2p198
 
-Things you may want to cover:
+* Rails : Rails 5.1.6
 
-* Ruby version
+* Database : sqlite3
 
-* System dependencies
 
-* Configuration
+* questionAndAnswer applicaltion clone : https://github.com/swethagnath/Assignment3.git
 
-* Database creation
+* follow the steps
 
-* Database initialization
+	step1: add companies
+    step2: sign_up form
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+* implemented
 
-* Deployment instructions
+	1.  A Question can have one or more answers, and only the one who created the question should be able  to    edit the question.
 
-* ...
+	2. Question will have many answers from the different user's who belong to same Company.
+
+	3.  devise for signup/signin and user  selects the Company while signing up in the devise signup form.
+
+	4.  bootstrap for the UI.
+
+* models
+	
+	1. Question
+
+	2. Answer
+
+	3. User
+
+	4. Company
+
+* gems used:
+
+	* Devise
+
+
