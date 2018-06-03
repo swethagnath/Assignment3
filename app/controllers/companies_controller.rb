@@ -8,7 +8,7 @@ class CompaniesController < ApplicationController
 	def create
 		@company = Company.new(company_params)
 		@company.save
-		redirect_to companies_path, notice:"successfully created"
+		redirect_to "/users/sign_up", notice:"successfully created"
 	end
 	private
 	def company_params

@@ -1,10 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <div class="navbar-header">
-      <%=link_to new_company_path, class:"navbar-brand" do%>
-              Add companies
+      <%if user_signed_in? === false%>
+        <%=link_to new_company_path, class:"navbar-brand" do%>
+                Add companies
+        <%end%>
       <%end%>
-    </div>
+    </div> 
     <%=notice%>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
