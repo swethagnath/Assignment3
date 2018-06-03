@@ -51,7 +51,11 @@
 				<h1 class="question">Company Users</h1>
 				<ul class="list-group">
 					<%current_user.company.users.each do |user|%>
+						<%if user.id === current_user.id%>
+	  					 	<li class="list-group-item"><%=user.email%><span class="ml-5 color">| you</span></li>
+	  				<%else%>
 	  					<li class="list-group-item"><%=user.email%></li>
+	  				<%end%>
 	  			<%end%>
 				</ul>
 			</div>
